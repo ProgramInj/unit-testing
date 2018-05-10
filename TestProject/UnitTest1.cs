@@ -19,5 +19,15 @@ namespace TestProject
 
             Assert.AreEqual(expected, answer);
         }
+
+        [TestMethod]
+        public void TestMethod2() //проверка на max
+        {
+            MyInt dde = new MyInt(121);
+            MyInt tte = new MyInt(323);
+            dde = dde.abs().Max(tte.abs());
+            Assert.AreEqual(dde.Value, tte.Value);
+        }
+
     }
 }
