@@ -169,6 +169,52 @@ namespace МодТест
 
             return new MyInt(answer);
         }
+
+        public MyInt Multiply(MyInt other)
+        {
+            MyInt ans = new MyInt("0");
+            string A = this.Value;
+            string B = other.Value;
+            int Az = 0;
+            int Bz = 0;
+            if (A[0] == '-')
+            {
+                Az = 1;
+                //A = A.Substring(1);
+            }
+            if (B[0] == '-')
+            {
+                Bz = 1;
+                B = B.Substring(1);
+            }
+
+            char[] arr = B.ToCharArray();
+            Array.Reverse(arr);
+            B = new string(arr);
+
+            int multer = 1;
+
+
+            for (int i = 0; i < B.Length; i++)
+            {
+                int n = int.Parse(B[i].ToString());
+                n = n * (int)Math.Pow(10, i);
+                for (int j = 0; j < n; j++)
+                {
+                    ans = ans.Add(this.abs());
+                    string val = ans.Value;
+                }
+                multer++;
+            }
+            if (Az != Bz)
+            {
+                ans = new MyInt("-" + ans.Value);
+            }
+
+            return ans;
+
+        }
+
         public MyInt abs()
         {
             if (Value[0] == '-') Value = Value.Substring(1);
@@ -191,6 +237,8 @@ namespace МодТест
             if (Value == other.Value) return true;
             else return false;
         }
+
+
 
         //max
         public MyInt Max(MyInt other)
@@ -370,6 +418,33 @@ namespace МодТест
                 result = c + result;
             }
             return result;
+        }
+
+        public long longValue()
+        {
+            long answer = 0;
+            int range = 19;
+            int Az = 0;
+            string loli = "";
+            if (Value[0] == '-')
+            {
+                loli = Value.Substring(1);
+                Az = 1;
+            }
+            else loli = Value;
+            int pow = loli.Length - 1;
+            int j = 0;
+            for (int i = pow; i > -1 && range > 0; i--)
+            {
+                int a = int.Parse(loli[j].ToString());
+                answer += a * (long)Math.Pow(10, i);
+                j++;
+                range--;
+            }
+
+            if (Az == 1) answer = -answer;
+
+            return answer;
         }
     }
 }
