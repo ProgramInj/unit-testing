@@ -15,14 +15,14 @@ namespace МодТест
         {
             Value = "";
         }
-        public MyInt(int lolqop)
+        public MyInt(int str)
         {
-            Value = ToStr(lolqop);
+            Value = ToStr(str);
 
         }
-        public MyInt(string lolqop)
+        public MyInt(string str1)
         {
-            Value = lolqop;
+            Value = str1;
         }
         public MyInt(int[] pop)
         {
@@ -70,8 +70,7 @@ namespace МодТест
         }
 
 
-        //Арифметические методы
-        public MyInt Add(MyInt other)
+        public MyInt Add(MyInt other) //сумма
         {
 
             string answer = "";
@@ -170,7 +169,7 @@ namespace МодТест
             return new MyInt(answer);
         }
 
-        public MyInt Multiply(MyInt other)
+        public MyInt Multiply(MyInt other) //умножение
         {
             MyInt ans = new MyInt("0");
             string A = this.Value;
@@ -180,7 +179,6 @@ namespace МодТест
             if (A[0] == '-')
             {
                 Az = 1;
-                //A = A.Substring(1);
             }
             if (B[0] == '-')
             {
@@ -221,7 +219,7 @@ namespace МодТест
             return new MyInt(Value);
         }
 
-        public MyInt Sub(MyInt other)
+        public MyInt Sub(MyInt other) //разность
         {
             MyInt answer;
 
@@ -232,7 +230,7 @@ namespace МодТест
             return answer;
         }
 
-        public bool compareTo(MyInt other)
+        public bool compareTo(MyInt other)//сравнение
         {
             if (Value == other.Value) return true;
             else return false;
@@ -382,6 +380,8 @@ namespace МодТест
 
             return result;
         }
+
+
         private string subs(string str1, string str2)
         {
             string result = "";
