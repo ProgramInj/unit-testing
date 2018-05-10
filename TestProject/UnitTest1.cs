@@ -39,5 +39,25 @@ namespace TestProject
             Assert.AreEqual(dde, tte);
         }
 
+        [TestMethod]
+        public void TestMethod4()//проверка на abs
+        {
+            //arrange
+            MyInt dde = new MyInt(-100);
+            MyInt tte = new MyInt(100);
+            dde = dde.abs();
+            Assert.AreEqual(dde.Value, tte.Value);
+        }
+
+        [TestMethod]
+        public void TestMethod5()//проверка на НОД
+        {
+            //arrange
+            MyInt dde = new MyInt(100);
+            MyInt tte = new MyInt(20);
+            dde = dde.Gcd(tte);
+            Assert.AreEqual(dde.Value, tte.Value);
+        }
+
     }
 }

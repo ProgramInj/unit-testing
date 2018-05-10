@@ -69,11 +69,129 @@ namespace МодТест
 
         }
 
+
+        //Арифметические методы
+        public MyInt Add(MyInt other)
+        {
+
+            string answer = "";
+            string A = this.Value;
+            string B = other.Value;
+            int Az = 0;
+            int Bz = 0;
+
+            if (A[0] == '-')
+            {
+                Az = 1;
+                A = A.Substring(1);
+            }
+            if (B[0] == '-')
+            {
+                Bz = 1;
+                B = B.Substring(1);
+            }
+            char[] arr = A.ToCharArray();
+            Array.Reverse(arr);
+            A = new string(arr);
+            arr = B.ToCharArray();
+            Array.Reverse(arr);
+            B = new string(arr);
+
+            int r = A.Length - B.Length;
+            if (r > 0)
+            {
+                for (int i = 0; i < r; i++)
+                {
+                    B = B + "0";
+                }
+            }
+            else if (r < 0)
+            {
+                r = -r;
+                for (int i = 0; i < r; i++)
+                {
+                    A = A + "0";
+                }
+            }
+
+
+            if (Az != Bz)
+            {
+                if (this.compareTo(other)) return new MyInt("0");
+                else
+                {
+                    if (this.abs().Value == this.abs().Max(other.abs()).Value)
+                    {
+                        answer = subs(A, B);
+                        bool isOver = false;
+                        int cc = 0;
+                        for (int i = 0; i < answer.Length; i++)
+                        {
+
+                            if (answer[i] != '0') isOver = true;
+                            else cc++;
+
+                            if (isOver)
+                            {
+                                answer = answer.Substring(cc);
+                                break;
+                            }
+                        }
+                        if (Az == 1) answer = "-" + answer;
+
+                    }
+                    else if (other.abs().Value == (this.abs().Max(other.abs())).Value)
+                    {
+                        answer = subs(B, A);
+                        bool isOver = false;
+                        int cc = 0;
+                        for (int i = 0; i < answer.Length; i++)
+                        {
+
+                            if (answer[i] != '0') isOver = true;
+                            else cc++;
+
+                            if (isOver)
+                            {
+                                answer = answer.Substring(cc);
+                                break;
+                            }
+                        }
+                        if (Bz == 1) answer = "-" + answer;
+                    }
+                }
+            }
+            else
+            {
+                answer = adds(A, B);
+                if (Az == 1) answer = "-" + answer;
+            }
+
+            return new MyInt(answer);
+        }
         public MyInt abs()
         {
             if (Value[0] == '-') Value = Value.Substring(1);
             return new MyInt(Value);
         }
+
+        public MyInt Sub(MyInt other)
+        {
+            MyInt answer;
+
+            if (other.Value[0] != '-') other = new MyInt("-" + other.Value);
+            else other = other.abs();
+
+            answer = this.Add(other);
+            return answer;
+        }
+
+        public bool compareTo(MyInt other)
+        {
+            if (Value == other.Value) return true;
+            else return false;
+        }
+
         //max
         public MyInt Max(MyInt other)
         {
@@ -126,6 +244,132 @@ namespace МодТест
 
             if (lel.Equals(this)) return other;
             else return this;
+        }
+
+        //НОД
+        public MyInt Gcd(MyInt other)
+        {
+            string what = "";
+            MyInt answer = new MyInt("0");
+            this.abs();
+            other = other.abs();
+            if (this.abs().Value == this.abs().Max(other.abs()).Value)
+            {
+                answer = this;
+                while (answer.Value != "0")
+                {
+                    answer = answer.Sub(other.abs());
+                    what = answer.Value;
+                    if (answer.abs().Value == answer.abs().Min(other.abs()).Value)
+                    {
+                        MyInt raz = other;
+                        other = answer;
+                        answer = raz;
+                    }
+                    if (other.Value == answer.Value) break;
+                }
+                return answer;
+
+            }
+            else if (other.abs().Value == (this.abs().Max(other.abs())).Value)
+            {
+                MyInt subber = this;
+                answer = other;
+                while (answer.abs().Value != "0")
+                {
+                    answer = answer.Sub(subber.abs());
+                    what = answer.Value;
+                    if (answer.abs().Value == answer.abs().Min(subber.abs()).Value)
+                    {
+                        MyInt raz = subber;
+                        subber = answer;
+                        answer = raz;
+                    }
+                    if (subber.Value == answer.Value) break;
+                }
+                return answer;
+
+            }
+            else return this;
+        }
+        private string adds(string str1, string str2)
+        {
+            string result = "";
+
+            int mind = 0;
+            int a = 0;
+            int b = 0;
+            int c = 0;
+
+            for (int i = 0; i < str1.Length; i++)
+            {
+
+                a = int.Parse(str1[i].ToString());
+                b = int.Parse(str2[i].ToString());
+
+                a = a + mind;
+                if (a < 10)
+                {
+                    mind = 0;
+                }
+                else
+                {
+                    a = a % 10;
+                    mind = 1;
+                }
+
+                c = a + b;
+                if (c > 9)
+                {
+                    c = c % 10;
+                    mind = 1;
+                }
+
+                result = c + result;
+            }
+            if (mind == 1)
+            {
+                result = "1" + result;
+            }
+
+            return result;
+        }
+        private string subs(string str1, string str2)
+        {
+            string result = "";
+            int mind = 0;
+            int a = 0;
+            int b = 0;
+            int c = 0;
+
+            for (int i = 0; i < str1.Length; i++)
+            {
+
+                a = int.Parse(str1[i].ToString());
+                b = int.Parse(str2[i].ToString());
+
+
+                if (a < mind)
+                {
+                    a = a + 10 - mind;
+                    mind = 1;
+                }
+                else
+                {
+                    a = a - mind;
+                    mind = 0;
+                }
+
+                if (a < b)
+                {
+                    c = a + 10 - b;
+                    mind = 1;
+                }
+                else c = a - b;
+
+                result = c + result;
+            }
+            return result;
         }
     }
 }
