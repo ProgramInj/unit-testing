@@ -68,11 +68,13 @@ namespace МодТест
             return result;
 
         }
+
         public MyInt abs()
         {
             if (Value[0] == '-') Value = Value.Substring(1);
             return new MyInt(Value);
         }
+        //max
         public MyInt Max(MyInt other)
         {
             string A = Value;
@@ -115,6 +117,15 @@ namespace МодТест
                 }
             }
 
+
+        }
+        //min
+        public MyInt Min(MyInt other)
+        {
+            MyInt lel = this.Max(other);
+
+            if (lel.Equals(this)) return other;
+            else return this;
         }
     }
 }

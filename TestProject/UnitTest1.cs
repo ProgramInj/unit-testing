@@ -29,5 +29,15 @@ namespace TestProject
             Assert.AreEqual(dde.Value, tte.Value);
         }
 
+        [TestMethod]
+        public void TestMethod3() //проверка на min
+        {
+            //arrange
+            MyInt dde = new MyInt(100);
+            MyInt tte = new MyInt(20);
+            dde = dde.Min(tte);
+            Assert.AreEqual(dde, tte);
+        }
+
     }
 }
